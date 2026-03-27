@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My KCET Rank Predictor</title>
+    <style>
+        /* This section controls how your website looks */
+        body {
+            background-color: #2b6cb0; /* Simple clean blue background */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 400px;
+        }
+        h2 {
+            text-align: center;
+            color: #2b6cb0;
+            margin-top: 0;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 5px;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #2b6cb0;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #1a4971;
+        }
+        .result-box {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #edf2f7;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            display: none; /* Hidden until button is clicked */
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>KCET Rank Predictor</h2>
+    
+    <label for="boardScore">2nd PUC PCM Score (out of 300):</label>
+    <input type="number" id="boardScore" placeholder="e.g. 285" max="300" min="0">
+
+    <label for="kcetScore">KCET PCM Score (out of 180):</label>
+    <input type="number" id="kcetScore" placeholder="e.g. 120" max="180" min="0">
+
+    <label for="guesses">How many questions did you blind guess?</label>
+    <input type="number" id="guesses" placeholder="e.g. 10" min="0">
+
+    <label for="difficulty">How hard was the exam overall?</label>
+    <select id="difficulty">
+        <option value="mid">Mid / Normal</option>
+        <option value="hard">Hard (-500 Rank)</option>
+        <option value="easy">Easy (+1000 Rank)</option>
+    </select>
+
+    <button onclick="calculateRank()">Predict My Rank</button>
+
+    <div id="result" class="result-box"></div>
+</div>
+
+<script>
+    /* This section controls the math and logic */
+    function calculateRank() {
+        // 1. Get the numbers the user typed in
+        let board = parseFloat(document.getElementById('boardScore').value) || 0;
+        let kcet = parseFloat(document.getElementById('kcetScore').value) || 0;
+        let guesses = parseInt(document.getElementById('guesses').value) || 0;
+        let difficulty = document.getElementById('difficulty').value;
+
+        // 2. Calculate the 50:50 Composite Score
+        let boardWeight = (board / 300) * 50;
+        let kcetWeight = (kcet / 180) * 50;
+        let composite = boardWeight + kcetWeight;
+
+        // 3. Figure out a Base Rank based on the composite percentage
+        let baseRank = 0;
+        if (composite >= 95) {
+            baseRank = (100 - composite) * 100; // 99% = 100 rank, 95% = 500 rank
+        } else if (composite >= 90) {
+            baseRank = 500 + ((95 - composite) * 400); // Scales from 500 to 2500
+        } else if (composite >= 80) {
+            baseRank = 2500 + ((90 - composite) * 750); // Scales from 2500 to 10000
+        } else if (composite >= 70) {
+            baseRank = 10000 + ((80 - composite) * 1500); // Scales from 10000 to 25000
+        } else {
+            baseRank = 25000 + ((70 - composite) * 3000); // Anything below 70 scales up fast
+        }
+
+        // 4. Apply Feature 1: The Guessing Penalty (10 guesses = +1000 rank, so 1 guess = 100)
+        let guessPenalty = guesses * 100;
+
+        // 5. Apply Feature 2: Exam Difficulty 
+        let difficultyModifier = 0;
+        if (difficulty === "hard") {
+            difficultyModifier = -500;
+        } else if (difficulty === "easy") {
+            difficultyModifier = 1000;
+        }
+
+        // 6. Calculate Final Rank
+        let finalRank = Math.floor(baseRank + guessPenalty + difficultyModifier);
+        
+        // Prevent negative ranks (Rank 1 is the best you can get)
+        if (finalRank < 1) {
+            finalRank = 1;
+        }
+
+        // 7. Show the result on the screen
+        let resultDiv = document.getElementById('result');
+        resultDiv.style.display = 'block';
+        resultDiv.innerHTML = `
+            Composite Score: <span style="color:#2b6cb0;">${composite.toFixed(2)} / 100</span><br><br>
+            Estimated Rank: <span style="color:#e53e3e;">~ ${finalRank.toLocaleString()}</span>
+        `;
+    }
+</script>
+
+</body>
+  </html>
+
