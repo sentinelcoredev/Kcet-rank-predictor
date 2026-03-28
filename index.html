@@ -1,282 +1,231 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <meta name="description" content="Predict your KCET 2026 Rank accurately with QuantX. Uses official 50:50 weightage (2nd PUC Board + KCET Marks) and 2025 cutoff data for Karnataka engineering colleges.">
     <meta name="keywords" content="KCET Rank Predictor 2026, KCET Marks vs Rank, Karnataka CET rank calculator, KCET 50-50 weightage calculator, RVCE cutoff 2026">
     <meta name="author" content="SentinelCoreDev">
     <meta property="og:title" content="QuantX: KCET 2026 Rank Predictor">
     <meta property="og:description" content="Get your estimated KCET rank instantly using your board and entrance marks.">
     <meta property="og:url" content="https://sentinelcoredev.github.io/">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="keywords" content="KCET 2026 Rank Predictor, KCET Marks vs Rank, Karnataka CET Prediction, KEA 2026, Engineering Rank">
-    <meta name="description" content="Calculate your KCET rank with ±500 accuracy using our futuristic quantum regression model based on 2026 scaling data.">
-    <title>QuantX | KCET Rank Predictor</title>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5005345290707000"
-     crossorigin="anonymous"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    
+
+    <title>QuantX | KCET 2026 Rank Predictor</title>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5005345290707000" crossorigin="anonymous"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;700&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+
     <style>
-        :root {
-            --neon-cyan: #00f3ff;
-            --neon-purple: #bc13fe;
-            --dark-bg: #020617;
-            --glass: rgba(15, 23, 42, 0.85);
-            --border: rgba(0, 243, 255, 0.2);
-        }
-        
         body {
-            background-color: var(--dark-bg);
-            background-image: 
-                radial-gradient(circle at 0% 0%, rgba(188, 19, 254, 0.1), transparent 50%),
-                radial-gradient(circle at 100% 100%, rgba(0, 243, 255, 0.1), transparent 50%);
-            font-family: 'Rajdhani', sans-serif;
-            color: #f1f5f9;
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: #020617;
+            color: #fff;
+            margin: 0;
+            padding: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
         }
-
-        .ad-slot {
-            width: 100%; max-width: 420px; text-align: center;
-            border: 1px dashed rgba(255, 255, 255, 0.2); border-radius: 8px;
-            padding: 10px 0; margin-bottom: 15px; color: #475569; font-size: 10px;
-            background: rgba(0,0,0,0.3); letter-spacing: 2px;
+        h2 {
+            font-family: 'Rajdhani', sans-serif;
+            color: #00f3ff;
+            font-size: 2.5em;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+            margin-bottom: 30px;
+            text-align: center;
         }
-
         .container {
-            background: var(--glass); backdrop-filter: blur(25px);
-            border: 1px solid var(--border); box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
-            padding: 30px; border-radius: 16px; width: 100%; max-width: 420px;
-            border-top: 4px solid var(--neon-cyan); margin-bottom: 15px; box-sizing: border-box;
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid #bc13fe;
+            box-shadow: 0 0 20px rgba(188, 19, 254, 0.2);
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 400px;
+            width: 100%;
         }
-
-        .header-module { text-align: center; margin-bottom: 20px; }
-        .header-module h2 { font-family: 'Orbitron', sans-serif; margin: 0; color: #fff; text-shadow: 0 0 10px var(--neon-cyan); font-size: 22px; letter-spacing: 2px; }
-        .header-module p { font-size: 10px; color: var(--neon-purple); margin: 5px 0 0 0; letter-spacing: 3px; font-weight: 700; }
-
-        .ticker-module {
-            background: rgba(0, 243, 255, 0.05); border: 1px solid rgba(0, 243, 255, 0.2);
-            padding: 10px; border-radius: 8px; font-size: 12px; margin-bottom: 20px;
-            display: flex; align-items: center; gap: 10px;
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #cbd5e1;
+            font-size: 0.9em;
         }
-        .ticker-badge { background: var(--neon-cyan); color: #000; padding: 2px 6px; border-radius: 4px; font-weight: bold; font-size: 10px; }
-
-        .input-module { margin-bottom: 15px; }
-        label { display: block; font-size: 11px; font-weight: 700; margin-bottom: 5px; color: #94a3b8; letter-spacing: 1px; }
-        input, select {
-            width: 100%; padding: 12px; background: #000; border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px; color: #fff; font-family: 'Rajdhani', sans-serif; font-size: 16px;
-            box-sizing: border-box; outline: none; transition: 0.3s;
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            background: #0f172a;
+            border: 1px solid #334155;
+            color: #00f3ff;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-family: 'Space Grotesk', sans-serif;
         }
-
-        button.primary-btn {
-            width: 100%; padding: 14px; background: transparent; color: var(--neon-cyan);
-            font-family: 'Orbitron', sans-serif; font-weight: 700; border: 1px solid var(--neon-cyan);
-            border-radius: 8px; cursor: pointer; transition: 0.3s; margin-top: 5px; letter-spacing: 1px;
+        input:focus {
+            outline: none;
+            border-color: #00f3ff;
+            box-shadow: 0 0 8px rgba(0, 243, 255, 0.3);
         }
-        button.primary-btn:hover { background: var(--neon-cyan); color: #000; box-shadow: 0 0 15px var(--neon-cyan); }
-
-        .output-module { margin-top: 25px; display: none; position: relative; padding: 15px; border-radius: 12px; background: rgba(0,0,0,0.4); border: 1px solid rgba(188, 19, 254, 0.2); }
-        
-        .share-btn {
-            position: absolute; top: 10px; right: 10px; background: rgba(0, 243, 255, 0.1);
-            border: 1px solid var(--neon-cyan); color: var(--neon-cyan); border-radius: 4px;
-            padding: 4px 8px; font-size: 10px; cursor: pointer; transition: 0.2s;
-            font-family: 'Orbitron', sans-serif; display: flex; align-items: center; gap: 4px;
+        button {
+            width: 100%;
+            padding: 15px;
+            background: #bc13fe;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: 0.3s;
         }
-
-        .rank-display { text-align: center; margin: 15px 0; }
-        .rank-val { font-family: 'Orbitron', sans-serif; font-size: 28px; color: #fff; text-shadow: 0 0 15px var(--neon-purple); display: block; }
-        .comp-val { color: var(--neon-cyan); font-size: 12px; font-weight: 700; }
-
-        .tracker-10k { background: rgba(0, 243, 255, 0.05); border-left: 2px solid var(--neon-cyan); padding: 10px; font-size: 13px; margin-top: 15px; line-height: 1.4; border-radius: 0 6px 6px 0; }
-        .quote { margin-top: 15px; font-style: italic; text-align: center; color: #64748b; font-size: 11px; }
-        
-        /* SEO Content Styling */
-        .seo-content { margin-top: 40px; border-top: 1px solid var(--border); padding-top: 20px; font-size: 14px; color: #94a3b8; line-height: 1.6; }
-        .seo-content h3 { color: var(--neon-cyan); font-family: 'Orbitron'; font-size: 16px; margin-bottom: 10px; }
-        .seo-content h4 { color: #fff; margin: 15px 0 5px 0; }
-        .seo-content li { margin-bottom: 8px; }
-
-        .legal-footer { font-size: 9px; color: #475569; text-align: center; margin-top: 10px; max-width: 400px; line-height: 1.3; }
-        .highlight { color: var(--neon-cyan); font-weight: bold; }
-        .footer-link { color: var(--neon-cyan); text-decoration: none; margin: 0 5px; }
+        button:hover {
+            background: #d946ef;
+            box-shadow: 0 0 15px rgba(188, 19, 254, 0.5);
+        }
+        #result-box {
+            display: none;
+            margin-top: 25px;
+            padding: 20px;
+            border: 1px solid #00f3ff;
+            border-radius: 8px;
+            text-align: center;
+            background: rgba(0, 243, 255, 0.05);
+        }
+        #rank-display {
+            font-size: 2.5em;
+            color: #00f3ff;
+            font-weight: bold;
+            margin: 10px 0;
+            font-family: 'Rajdhani', sans-serif;
+        }
+        .seo-content {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid #334155;
+            border-radius: 12px;
+            color: #94a3b8;
+            line-height: 1.8;
+            font-size: 0.95em;
+        }
+        .seo-content h3 { color: #bc13fe; margin-top: 25px; }
+        #whatsapp-btn {
+            display: none;
+            background: #25D366;
+            color: white;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            border-radius: 6px;
+            font-weight: bold;
+            font-family: 'Rajdhani', sans-serif;
+            cursor: pointer;
+            margin-top: 15px;
+            font-size: 1.1em;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+            text-align: center;
+        }
     </style>
 </head>
 <body>
 
-<div class="ad-slot" id="ad-top">
-    [ PASTE GOOGLE ADSENSE CODE HERE ]<br>ADVERTISEMENT
-</div>
+    <h2>QUANTX.CORE</h2>
 
-<div class="container">
-    <div class="header-module">
-        <h2>QUANTX.CORE</h2>
-        <p>PREDICTION ENGINE 2026</p>
-    </div>
+    <div class="container">
+        <label>KCET Marks (out of 180)</label>
+        <input type="number" id="kcetMarks" placeholder="e.g. 120" max="180">
 
-    <div class="ticker-module">
-        <span class="ticker-badge">LIVE</span>
-        <span id="updateText">Syncing timeline...</span>
-    </div>
-    
-    <div class="input-module">
-        <label>PUC PCM SCORE (OUT OF 300)</label>
-        <input type="number" id="board" placeholder="e.g. 265">
-    </div>
+        <label>2nd PUC Board PCM Marks (out of 300)</label>
+        <input type="number" id="boardMarks" placeholder="e.g. 285" max="300">
 
-    <div class="input-module">
-        <label>KCET PCM SCORE (OUT OF 180)</label>
-        <input type="number" id="kcet" placeholder="e.g. 90">
-    </div>
+        <button onclick="calculateRank()">PREDICT RANK</button>
 
-    <div class="input-module">
-        <label>SYSTEM RESISTANCE</label>
-        <select id="diff">
-            <option value="mid">Standard Matrix (Baseline)</option>
-            <option value="hard">High Difficulty (+ Rank Boost)</option>
-            <option value="easy">Low Difficulty (- Rank Penalty)</option>
-        </select>
-    </div>
-
-    <button class="primary-btn" onclick="executePrediction()">INITIALIZE</button>
-
-    <div id="captureArea" class="output-module">
-        <button class="share-btn" onclick="captureAndShare()">📷 SHARE</button>
-        <div class="rank-display">
-            <span style="font-size: 10px; color: #94a3b8; letter-spacing: 2px;">PROJECTED RANK (±500)</span>
-            <span class="rank-val" id="rankText"></span>
-            <span class="comp-val" id="compText"></span>
+        <div id="result-box">
+            <p style="margin:0; font-size: 0.9em; color: #cbd5e1;">Expected Rank (2026 Shift Applied)</p>
+            <div id="rank-display">0</div>
+            
+            <button id="whatsapp-btn" onclick="shareOnWhatsApp()">
+                SHARE ON WHATSAPP
+            </button>
         </div>
-        <div class="tracker-10k" id="trackerBox"></div>
-        <div class="quote" id="quoteBox"></div>
     </div>
 
     <div class="seo-content">
-        <h3>How the KCET 2026 Rank is Calculated</h3>
-        <p>The Karnataka Common Entrance Test (KCET) utilizes a specific 50:50 weightage system. This ensures that both your board performance and your entrance exam results play an equal role in your final merit rank.</p>
-        
-        <h4>The Calculation Logic:</h4>
-        <ol>
-            <li><strong>Board Percentage:</strong> Calculated from your 2nd PUC Physics, Chemistry, and Mathematics scores out of 300.</li>
-            <li><strong>KCET Percentage:</strong> Calculated from your KCET PCM scores out of 180.</li>
-            <li><strong>Final Composite:</strong> The average of these two percentages creates your "Composite Score".</li>
-        </ol>
-        <p>Our QuantX engine maps this composite score against historical datasets to predict your rank with high precision.</p>
+        <h2 style="font-size: 1.8em; margin-top: 0;">KCET 2026: The Ultimate Rank Calculation Guide</h2>
+        <p>For the KCET 2026 engineering rankings, the Karnataka Examinations Authority (KEA) follows a balanced weightage system. Your final rank is determined by taking 50% of your performance in the KCET Entrance Exam (Physics, Chemistry, and Mathematics) and 50% of your 2nd PUC (Class 12) Board PCM marks. This means your board exam scores act as a critical safety net for your rank.</p>
+
+        <h3>How to Calculate Your Composite Score</h3>
+        <p>To predict your rank accurately, we use the composite score method. First, your KCET marks (out of 180) are converted to a percentage. Next, your Board PCM marks (out of 300) are converted to a percentage. The average of these two percentages gives you your final "Ranking Percentage." In a high-competition year like 2026, even a 0.5% difference in your composite score can lead to a shift of over 1,000 ranks.</p>
+
+        <h3>Expected Cutoffs for Top Karnataka Colleges</h3>
+        <p>Based on 2024 and 2025 trends, the competition for Computer Science (CSE) remains intense. If you are aiming for top-tier institutes in Bangalore, here are the general target ranks:</p>
+        <ul>
+            <li><strong>RV College of Engineering (RVCE):</strong> Typically requires a rank under 500 for CSE.</li>
+            <li><strong>BMS College of Engineering (BMSCE):</strong> Aim for a rank within the top 1,500.</li>
+            <li><strong>PES University (RR Campus):</strong> General merit cutoffs usually close around 2,000.</li>
+            <li><strong>MS Ramaiah Institute of Technology (MSRIT):</strong> Look for a rank between 1,800 and 2,500.</li>
+        </ul>
+
+        <h3>Why Board Marks are the "Secret Weapon"</h3>
+        <p>Many students focus only on the CET exam, but a high score in your 2nd PUC Board exams can significantly boost your rank if the CET paper is particularly difficult. Every single mark in Physics, Chemistry, or Math at the board level is equivalent to nearly 1.5 marks in the actual KCET entrance test. If your board marks are above 95%, you have a massive advantage before the entrance exam even begins.</p>
+
+        <p style="font-size: 0.8em; font-style: italic; margin-top: 20px; border-top: 1px dashed #334155; padding-top: 10px;">Disclaimer: This predictor is based on historical data trends and includes an algorithmic shift for expected 2026 candidate volume. Actual ranks may vary.</p>
     </div>
-</div>
 
-<div class="ad-slot" id="ad-bottom">
-    [ PASTE GOOGLE ADSENSE CODE HERE ]<br>ADVERTISEMENT
-</div>
-
-<div class="legal-footer">
-    <a href="about.html" class="footer-link">About Us</a> | 
-    <a href="privacy.html" class="footer-link">Privacy Policy</a> | 
-    <a href="contact.html" class="footer-link">Contact</a>
-    <br><br>
-    *Disclaimer: QuantX is an independent analytical tool. Predictions are based on historical scaling data. Official results from KEA are final.
-</div>
-
-<script>
-    const quotes = ["180 minutes defines your 4 years.", "Every MCQ counts.", "RV, PES, MSRIT... make them your reality.", "Consistency wins the race.", "Math is the ultimate tie-breaker."];
-
-    window.onload = function() {
-        if(localStorage.getItem('qx_board')) document.getElementById('board').value = localStorage.getItem('qx_board');
-        if(localStorage.getItem('qx_kcet')) document.getElementById('kcet').value = localStorage.getItem('qx_kcet');
-        
-        const now = new Date();
-        const month = now.getMonth() + 1;
-        const year = now.getFullYear();
-        const ticker = document.getElementById('updateText');
-
-        if (month <= 3) { ticker.innerHTML = `Vitals: ${year} Applications Open.`; } 
-        else if (month === 4) { ticker.innerHTML = `Vitals: Hall Tickets releasing soon for April ${year} exams.`; } 
-        else { ticker.innerHTML = `Vitals: Verifying ${year} result data.`; }
-    };
-
-    function executePrediction() {
-        const board = parseFloat(document.getElementById('board').value) || 0;
-        const kcet = parseFloat(document.getElementById('kcet').value) || 0;
-        const diff = document.getElementById('diff').value;
-
-        localStorage.setItem('qx_board', board);
-        localStorage.setItem('qx_kcet', kcet);
-
-        const boardPct = (board / 300) * 100;
-        const kcetPct = (kcet / 180) * 100;
-        const comp = (boardPct + kcetPct) / 2;
-
-        const logR = (-0.111 * comp) + 17.36;
-        let cRank = Math.exp(logR);
-        if (diff === "hard") cRank *= 0.95;
-        if (diff === "easy") cRank *= 1.07;
-
-        let finalR = Math.floor(cRank);
-        if (finalR > 312000) finalR = 312000;
-        if (finalR < 1) finalR = 1;
-
-        let low = Math.max(1, finalR - 500);
-        let high = Math.min(312000, finalR + 500);
-
-        document.getElementById('captureArea').style.display = 'block';
-        document.getElementById('rankText').innerText = `${low.toLocaleString()} - ${high.toLocaleString()}`;
-        document.getElementById('compText').innerText = `SYS.COMPOSITE: ${comp.toFixed(2)}%`;
-
-        const target10kComp = (17.36 - Math.log(10000)) / 0.111;
-        const neededKcetMarks10k = Math.ceil((((target10kComp * 2) - boardPct) / 100) * 180);
-        const marksMissing = neededKcetMarks10k - kcet;
-
-        document.getElementById('trackerBox').innerHTML = finalR > 10000 ? `ROAD TO 10K: Need <span class="highlight">+${marksMissing} marks</span> in KCET.` : `<span class="highlight">ELITE STATUS</span>: Projected Top 10k.`;
-        document.getElementById('quoteBox').innerText = `"${quotes[Math.floor(Math.random() * quotes.length)]}"`;
-    }
-
-    function captureAndShare() {
-        const btn = document.querySelector('.share-btn');
-        btn.style.display = 'none'; 
-        html2canvas(document.getElementById('captureArea'), { backgroundColor: '#020617', scale: 2 }).then(canvas => {
-            const link = document.createElement('a');
-            link.download = 'QuantX_Prediction.webp';
-            link.href = canvas.toDataURL('image/webp', 0.6);
-            link.click();
-            btn.style.display = 'flex'; 
-        });
-    }
-</script>
-<div style="max-width: 800px; margin: 40px auto; padding: 20px; background: rgba(15, 23, 42, 0.8); border: 1px solid #334155; border-radius: 12px; color: #cbd5e1; line-height: 1.8; font-family: sans-serif; text-align: left;">
-    <h2 style="color: #00f3ff; text-align: center; border-bottom: 2px solid #bc13fe; padding-bottom: 10px;">KCET 2026: The Ultimate Rank Calculation Guide</h2>
-    
-    <h3 style="color: #bc13fe; margin-top: 25px;">1. Understanding the 50:50 Weightage Rule</h3>
-    <p>For the KCET 2026 engineering rankings, the Karnataka Examinations Authority (KEA) follows a balanced weightage system. Your final rank is determined by taking 50% of your performance in the KCET Entrance Exam (Physics, Chemistry, and Mathematics) and 50% of your 2nd PUC (Class 12) Board PCM marks. This means your board exam scores act as a critical safety net for your rank.</p>
-
-    <h3 style="color: #bc13fe; margin-top: 25px;">2. How to Calculate Your Composite Score</h3>
-    <p>To predict your rank accurately, we use the composite score method. First, your KCET marks (out of 180) are converted to a percentage. Next, your Board PCM marks (out of 300) are converted to a percentage. The average of these two percentages gives you your final "Ranking Percentage." In a high-competition year like 2026, even a 0.5% difference in your composite score can lead to a shift of over 1,000 ranks.</p>
-
-    <h3 style="color: #bc13fe; margin-top: 25px;">3. Expected Cutoffs for Top Karnataka Colleges</h3>
-    <p>Based on 2024 and 2025 trends, the competition for Computer Science (CSE) remains intense. If you are aiming for top-tier institutes in Bangalore, here are the general target ranks:</p>
-    <ul>
-        <li><strong>RV College of Engineering (RVCE):</strong> Typically requires a rank under 500 for CSE.</li>
-        <li><strong>BMS College of Engineering (BMSCE):</strong> Aim for a rank within the top 1,500.</li>
-        <li><strong>PES University (RR Campus):</strong> General merit cutoffs usually close around 2,000.</li>
-        <li><strong>MS Ramaiah Institute of Technology (MSRIT):</strong> Look for a rank between 1,800 and 2,500.</li>
-    </ul>
-
-    <h3 style="color: #bc13fe; margin-top: 25px;">4. Why Board Marks are the "Secret Weapon"</h3>
-    <p>Many students focus only on the CET exam, but a high score in your 2nd PUC Board exams can significantly boost your rank if the CET paper is particularly difficult. Every single mark in Physics, Chemistry, or Math at the board level is equivalent to nearly 1.5 marks in the actual KCET entrance test. If your board marks are above 95%, you have a massive advantage before the entrance exam even begins.</p>
-
-    <p style="font-size: 0.9em; font-style: italic; margin-top: 30px; border-top: 1px dashed #334155; pt-10px;">Disclaimer: This predictor is based on historical data trends. Actual ranks may vary based on the difficulty level of the KCET 2026 paper and the number of candidates appearing for the exam.</p>
-</div>
-
-<div style="text-align: center; margin-top: 30px; margin-bottom: 20px; font-family: 'Rajdhani', sans-serif;">
-    <p style="color: #00f3ff; font-size: 0.8em; margin-bottom: 8px; letter-spacing: 1px;">LIVE ENGINE TRAFFIC</p>
+    <div style="text-align: center; margin-bottom: 40px;">
+        <p style="color: #00f3ff; font-family: 'Rajdhani', sans-serif; font-size: 0.8em; letter-spacing: 1px;">SESSIONS TRACKED</p>
+        <img src="https://hits.dwyl.com/sentinelcoredev/sentinelcoredev.github.io.svg" alt="Visitor Count"/>
     </div>
-<img src="https://hits.dwyl.com/sentinelcoredev/sentinelcoredev.github.io.svg" alt="Visitor Count"/>
-    
+
+    <script>
+        function calculateRank() {
+            let kcet = parseFloat(document.getElementById("kcetMarks").value);
+            let board = parseFloat(document.getElementById("boardMarks").value);
+
+            if (isNaN(kcet) || isNaN(board) || kcet < 0 || kcet > 180 || board < 0 || board > 300) {
+                alert("Please enter valid marks. KCET (0-180) and Board (0-300).");
+                return;
+            }
+
+            // 50:50 Weightage Logic
+            let kcetPercent = (kcet / 180) * 50;
+            let boardPercent = (board / 300) * 50;
+            let totalScore = kcetPercent + boardPercent;
+
+            // Base Rank Estimation (Simulated Algorithm)
+            let baseRank = 0;
+            if (totalScore >= 95) baseRank = 100 + (98 - totalScore) * 150;
+            else if (totalScore >= 90) baseRank = 500 + (95 - totalScore) * 300;
+            else if (totalScore >= 80) baseRank = 2000 + (90 - totalScore) * 800;
+            else if (totalScore >= 70) baseRank = 10000 + (80 - totalScore) * 1500;
+            else if (totalScore >= 60) baseRank = 25000 + (70 - totalScore) * 2000;
+            else baseRank = 45000 + (60 - totalScore) * 2500;
+            
+            // Prevent negative ranks
+            if (baseRank < 1) baseRank = 1;
+
+            // Apply the 2026 +1.5% Student Volume Shift (Your Request)
+            // Multiplying base rank by 1.015 pushes the rank back slightly to account for more students
+            let finalRank = Math.floor(baseRank * 1.015);
+
+            // Display Results
+            document.getElementById("rank-display").innerText = finalRank.toLocaleString('en-IN');
+            document.getElementById("result-box").style.display = "block";
+            document.getElementById("whatsapp-btn").style.display = "block";
+        }
+
+        function shareOnWhatsApp() {
+            const predictedRank = document.getElementById('rank-display').innerText; 
+            const message = `🚀 *QuantX KCET 2026 Rank Predictor* 🚀%0A%0A` +
+                            `My Predicted Rank: *${predictedRank}*%0A` +
+                            `Factors: 50% Board + 50% KCET (2026 Data)%0A%0A` +
+                            `Check your rank here: %0Ahttps://sentinelcoredev.github.io/`;
+            window.open(`https://wa.me/?text=${message}`, '_blank');
+        }
+    </script>
 </body>
-        </html>
-    
+</html>
