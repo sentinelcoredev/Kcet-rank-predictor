@@ -346,15 +346,49 @@
         background: linear-gradient(135deg, #60a5fa, #3b82f6);
     }
 </style>
+<div id="scroll-nudge" style="display: none; text-align: center; margin: 15px auto; color: #facc15; font-family: 'Space Grotesk', sans-serif; font-weight: bold; font-size: 0.95em; cursor: pointer;">
+    <span style="display: inline-block; animation: bounce 1.5s infinite;">↓↓↓</span> 
+    Scroll down for your 2026 College Options 
+    <span style="display: inline-block; animation: bounce 1.5s infinite;">↓↓↓</span>
+</div>
+
+<style>
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-8px); }
+    60% { transform: translateY(-4px); }
+}
+</style>
+
 <script>
-    // This looks for your 'Calculate' button. 
-    // Make sure your button has id="calculate-btn" or change the selector below!
-    document.querySelector('button').addEventListener('click', function() {
-        setTimeout(() => {
-            const nudge = document.getElementById("scroll-nudge");
-            if(nudge) nudge.style.display = "block";
-        }, 500); // Shows up half a second after clicking
+(function() {
+    // 1. Find the calculation button safely
+    const allButtons = document.querySelectorAll('button');
+    let calcBtn = null;
+
+    allButtons.forEach(btn => {
+        const text = btn.innerText.toLowerCase();
+        if (text.includes('predict') || text.includes('calculate')) {
+            calcBtn = btn;
+        }
     });
+
+    if (calcBtn) {
+        // 2. Move the nudge message right under that specific button
+        const nudge = document.getElementById('scroll-nudge');
+        calcBtn.parentNode.insertBefore(nudge, calcBtn.nextSibling);
+
+        // 3. Show it when the button is clicked
+        calcBtn.addEventListener('click', function() {
+            // Small delay so the rank calculates first
+            setTimeout(() => {
+                nudge.style.display = 'block';
+                // Smoothly scroll a tiny bit to show the message is there
+                window.scrollBy({ top: 50, behavior: 'smooth' });
+            }, 300);
+        });
+    }
+})();
 </script>
     
 </body>
