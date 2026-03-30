@@ -265,6 +265,72 @@
         Privacy Policy
     </a>
 </footer>
+ <div id="quantx-footer-module" style="font-family: 'Space Grotesk', sans-serif; color: #e2e8f0; max-width: 800px; margin: 0 auto;">
+
+    <div id="countdown-container" style="display: none; background: linear-gradient(90deg, #1e293b, #0f172a); border: 1px solid #334155; border-radius: 12px; padding: 15px; margin: 20px auto; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
+        <p style="color: #94a3b8; margin: 0 0 10px 0; font-size: 0.8em; text-transform: uppercase; letter-spacing: 1px;">Time Remaining for KCET 2026</p>
+        <div id="timer-display" style="color: #60a5fa; font-size: 1.6em; font-weight: bold; letter-spacing: 2px;">00d 00h 00m 00s</div>
+    </div>
+
+    <section style="margin-top: 60px; padding: 20px; border-top: 1px solid #334155;">
+        <h2 style="color: #60a5fa; text-align: center; font-size: 1.6em; margin-bottom: 20px;">The QuantX 2026 Algorithm</h2>
+        
+        <div style="background: rgba(30, 41, 59, 0.5); padding: 20px; border-radius: 12px; border: 1px solid #334155; margin-bottom: 25px;">
+            <h3 style="color: #f87171; margin-top: 0; font-size: 1.1em;">Why 2024 Predictors are Outdated</h3>
+            <p style="font-size: 0.9em;">With 2026 registrations hitting record highs, competition density has shifted. Our algorithm uses a <strong>1.5% volume correction</strong> to ensure your rank prediction is realistic for this year's massive student turnout.</p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr; gap: 15px;">
+            <div style="padding: 12px; border-left: 4px solid #60a5fa; background: #0f172a;">
+                <h4 style="margin: 0; color: #60a5fa; font-size: 1em;">1.5% Volume Shift</h4>
+                <p style="font-size: 0.85em; margin: 5px 0 0 0;">Corrects rank inflation caused by the 2026 student surge.</p>
+            </div>
+            <div style="padding: 12px; border-left: 4px solid #60a5fa; background: #0f172a;">
+                <h4 style="margin: 0; color: #60a5fa; font-size: 1em;">Official 50:50 Weightage</h4>
+                <p style="font-size: 0.85em; margin: 5px 0 0 0;">Uses the exact KEA composite formula for Board & KCET marks.</p>
+            </div>
+            <div style="padding: 12px; border-left: 4px solid #60a5fa; background: #0f172a;">
+                <h4 style="margin: 0; color: #60a5fa; font-size: 1em;">Zero-Data Harvesting</h4>
+                <p style="font-size: 0.85em; margin: 5px 0 0 0;">No phone numbers. No spam. Just pure math.</p>
+            </div>
+        </div>
+
+        <div style="padding: 15px; border-radius: 10px; border: 1px solid #facc15; background: rgba(250, 204, 21, 0.05); margin-top: 30px;">
+            <h4 style="margin: 0; color: #facc15; font-size: 1em;">About the Developer</h4>
+            <p style="font-size: 0.85em; margin: 8px 0 0 0;">Created by a KCET 2026 aspirant for students. We provide transparent, spam-free tools to help you plan your future. Support: <strong>core.dev.op@gmail.com</strong></p>
+        </div>
+    </section>
+</div>
+
+<script>
+    function initializeQuantXModule() {
+        const targetDate = new Date("April 23, 2026 09:00:00").getTime();
+        const container = document.getElementById("countdown-container");
+        const display = document.getElementById("timer-display");
+
+        // Moves timer to top of page automatically
+        document.body.insertBefore(container, document.body.firstChild);
+
+        const updateTimer = setInterval(() => {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            if (distance < 0) {
+                clearInterval(updateTimer);
+                container.style.display = "none";
+                return;
+            }
+
+            container.style.display = "block";
+            const d = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((distance % (1000 * 60)) / 1000);
+            display.innerHTML = `${d}d ${h}h ${m}m ${s}s`;
+        }, 1000);
+    }
+    initializeQuantXModule();
+</script>
     
 </body>
 </html>
