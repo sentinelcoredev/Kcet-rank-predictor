@@ -418,7 +418,57 @@
     })();
 </script>
     
+<script>
+(function() {
+    // 1. Create the Button Element
+    const shareBtn = document.createElement('a');
+    shareBtn.id = 'whatsapp-share-btn';
+    
+    // 2. Set the WhatsApp Link
+    // Encodes the message: "I just predicted my KCET 2026 rank on QUANTX.CORE! Check yours here: "
+    const siteUrl = window.location.href;
+    const shareText = encodeURIComponent("I just predicted my KCET 2026 rank on QUANTX.CORE! Check yours here: ");
+    shareBtn.href = `https://wa.me/?text=${shareText}${siteUrl}`;
+    shareBtn.setAttribute('data-action', 'share/whatsapp/share');
+    shareBtn.target = '_blank';
 
+    // 3. Button Content (WhatsApp Icon + Text)
+    shareBtn.innerHTML = `
+        <svg style="width:18px; height:18px; fill:currentColor; margin-right:8px;" viewBox="0 0 24 24">
+            <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766 0-3.18-2.587-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.982-.363-1.747-.756-2.879-2.506-2.966-2.62-.088-.114-.719-.951-.719-1.828 0-.877.458-1.308.621-1.485.163-.177.354-.221.472-.221s.236.001.339.006c.113.004.263-.043.412.316.154.373.528 1.289.573 1.381.045.091.076.197.015.318-.06.121-.092.197-.181.303-.089.106-.188.236-.268.318-.091.091-.186.191-.08.373.106.182.471.777 1.012 1.258.696.621 1.282.813 1.464.904.182.091.288.076.394-.045.106-.121.456-.53.577-.712.121-.182.242-.152.409-.091.168.061 1.062.5 1.244.591.182.091.303.136.348.212.045.076.045.439-.099.844z"/>
+        </svg>
+        SHARE RESULT
+    `;
+
+    // 4. Futuristic Styles
+    Object.assign(shareBtn.style, {
+        position: 'fixed',
+        bottom: '20px',
+        right: '20px',
+        backgroundColor: '#25D366', // Original WA Green for trust
+        color: '#fff',
+        padding: '12px 18px',
+        borderRadius: '12px',
+        fontWeight: '700',
+        fontSize: '0.8rem',
+        textDecoration: 'none',
+        fontFamily: "'Space Grotesk', sans-serif",
+        letterSpacing: '1px',
+        zIndex: '10000',
+        boxShadow: '0 8px 15px rgba(37, 211, 102, 0.3)',
+        display: 'flex',
+        alignItems: 'center',
+        transition: 'transform 0.2s ease'
+    });
+
+    // 5. Mobile Interaction
+    shareBtn.ontouchstart = () => shareBtn.style.transform = 'scale(0.9)';
+    shareBtn.ontouchend = () => shareBtn.style.transform = 'scale(1)';
+
+    document.body.appendChild(shareBtn);
+})();
+</script>
+    
 </body>
 </html>
 
